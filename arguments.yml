@@ -2,30 +2,25 @@
 scenario: 'low'
 
 # Meteorological dataset
-meteo_database: 'ERA5ML'
+meteo_database: 'ERA5'
 
 # Type of initial condition (NONE,INSERTION,RESTART)
 initial_condition: 'RESTART'
 
 # Time range
-start_date_time: "2018-12-25T00:00:00Z"
-end_date_time: "2018-12-26T00:00:00Z"
-
+start_date_time: "2021-09-25T00:06:00Z"
+end_date_time:   "2021-09-26T00:06:00Z"
 
 # Grid definition
-#west_lon: 8.0
-#east_lon: 22.0
-#south_lat: 33.0
-#north_lat: 40.0
-wkt: "POLYGON((8.0 33.0, 22.0 33.0, 22.0 40.0, 8.0 40.0, 8.0 33.0))"
-dx: 0.05
-dy: 0.05
-nlevels: 24
+wkt: "POLYGON((-24.0 23.0, 10.0 23.0, 10.0 50.0, -24.0 50.0, -24.0 23.0))"
+dx: 0.1
+dy: 0.1
+nlevels: 20
 
-#volcano 
-vent_lon: 15.0
-vent_lat: 37.75
-vent_height: 3300
+# Volcano coordinates
+vent_lon: -17.86647
+vent_lat:  28.61339
+vent_height: 1130.
 
 # MPI tasks
 #nx_mpi: 3
@@ -39,10 +34,5 @@ keys:
   - SO2_col_mass
   - SO2_cloud_top
 
-#times:
-#  - 0
-#  - 6
-#  - 12
-#  - 18
-#  - 24
+# Time frequency
 times: 6

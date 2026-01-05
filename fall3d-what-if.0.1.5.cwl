@@ -480,13 +480,13 @@ $graph:
         run: "#config"
         in:
           template: 
-            default: "/app/template.inp"
+            default: "app/template.inp"
           meteo: 
-            default: "/app/meteo_era5_ml_etna_20181223_20181230.nc"
+            default: "app/meteo_era5_palma_20210924_20210926.nc"
           restart:
-            default: "/app/etna2018.2018-12-25-00-00.rst.nc"
+            default: "app/lapalma.2021-09-25-06-00.rst.nc"
           dictionary:
-            default: "/app/ERA5.tbl"
+            default: "app/ERA5.tbl"
           levels:
             default: "/app/L137_ECMWF.levels"
           meteo_database: meteo_database
