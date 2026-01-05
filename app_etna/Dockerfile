@@ -54,5 +54,6 @@ COPY ../app/createSTAC.py .
 COPY ../app/fill_template.py .
 COPY template.inp .
 COPY ERA5.tbl .
-COPY lapalma.2021-09-25-06-00.rst.nc restart.nc
-COPY meteo_era5_palma_20210924_20210926.nc meteo.nc
+COPY etna2018.2018-12-25-00-00.rst.nc restart.nc
+COPY meteo_era5_ml_etna_20181223_20181230.nc meteo.nc
+COPY L137_ECMWF.levels .

@@ -1,0 +1,38 @@
+# Type of scenario (high, medium, low)
+scenario: 'high'
+
+# Meteorological dataset
+meteo_database: 'ERA5ML'
+
+# Type of initial condition (NONE,INSERTION,RESTART)
+initial_condition: 'RESTART'
+
+# Time range
+start_date_time: "2018-12-25T00:00:00Z"
+end_date_time:   "2018-12-26T00:00:00Z"
+
+# Grid definition
+wkt: 'POLYGON((8.0 33.0, 22.0 33.0, 22.0 40.0, 8.0 40.0, 8.0 33.0))'
+dx: 0.05
+dy: 0.05
+nlevels: 24
+
+# Volcano coordinates
+vent_lon: 15.0
+vent_lat: 37.75
+vent_height: 3300
+
+# MPI tasks
+#nx_mpi: 3
+#ny_mpi: 2
+#nz_mpi: 1
+
+# Plot configuration
+keys:
+  - tephra_col_mass
+  - tephra_cloud_top
+  - SO2_col_mass
+  - SO2_cloud_top
+
+# Time frequency
+times: 6
