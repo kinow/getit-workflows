@@ -5,7 +5,7 @@ $namespaces:
 schemas:
 - http://schema.org/version/9.0/schemaorg-current-http.rdf
 
-s:softwareVersion: 0.1.5
+s:softwareVersion: 0.1.6
 
 s:author:
   - class: s:Person
@@ -480,13 +480,13 @@ $graph:
         run: "#config"
         in:
           template: 
-            default: "app/template.inp"
+            default: "/app/template.inp"
           meteo: 
-            default: "app/meteo_era5_palma_20210924_20210926.nc"
+            default: "/app/meteo.nc"
           restart:
-            default: "app/lapalma.2021-09-25-06-00.rst.nc"
+            default: "/app/restart.nc"
           dictionary:
-            default: "app/ERA5.tbl"
+            default: "/app/ERA5.tbl"
           levels:
             default: "/app/L137_ECMWF.levels"
           meteo_database: meteo_database
