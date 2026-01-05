@@ -21,11 +21,11 @@ def main(args):
     end_time = (dt_end - day_start).total_seconds()/3600
 
     #Parse WKT
-    wkt_polygon = args.WKT
-    if not isinstance(polygon, Polygon):
+    wkt_polygon = loads(args.WKT)
+    if not isinstance(wkt_polygon, Polygon):
         raise ValueError("WKT must be a POLYGON")
 
-    west_lon, south_lat, east_lon, north_lat = polygon.bounds
+    west_lon, south_lat, east_lon, north_lat = wkt_polygon.bounds
 
     data = vars(args)
     data['YEAR']  = dt_start.year

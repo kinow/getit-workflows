@@ -8,8 +8,8 @@ meteo_database: 'ERA5'
 initial_condition: 'RESTART'
 
 # Time range
-start_date_time: "2021-09-25T00:06:00Z"
-end_date_time:   "2021-09-26T00:06:00Z"
+start_date_time: "2021-09-25T06:00:00Z"
+end_date_time:   "2021-09-26T06:00:00Z"
 
 # Grid definition
 wkt: "POLYGON((-24.0 23.0, 10.0 23.0, 10.0 50.0, -24.0 50.0, -24.0 23.0))"
@@ -20,7 +20,7 @@ nlevels: 20
 # Volcano coordinates
 vent_lon: -17.86647
 vent_lat:  28.61339
-vent_height: 1130.
+vent_height: 1130
 
 # MPI tasks
 #nx_mpi: 3
