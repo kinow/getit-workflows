@@ -1,0 +1,36 @@
+|------------------------------------------|
+|                                          |
+|     FALL3D dictionary for ERA5 model     |
+|                                          |
+|------------------------------------------|
+| READ_DIM |  DIM_DBS    |  DIM_ERA5       | 
+|------------------------------------------|
+|    1     |  DIM_LON    |  longitude      |
+|    1     |  DIM_LAT    |  latitude       |
+|    1     |  DIM_LEV    |  isobaricInhPa  |
+|    1     |  DIM_TIME   |  time           |
+|------------------------------------------|
+| READ_VAR |  VAR_DBS    |  VAR_ERA5       |
+|------------------------------------------|
+|    1     |  VAR_LON    |  longitude      |  Longitudes (1D)
+|    1     |  VAR_LAT    |  latitude       |  Latitudes (1D)
+|    1     |  VAR_LEV    |  isobaricInhPa  |  Pressure levels (1D)
+|    1     |  VAR_TIME   |  time           |  Time (1D)
+|    1     |  VAR_TOPO   |  z_topo         |  Terrain height (m2/s2)
+|    1     |  VAR_LMASK  |  lsm            |  Land-sea mask
+|    1     |  VAR_PBLH   |  blh            |  Boundary layer height
+|    1     |  VAR_UST    |  zust           |  Friction velocity
+|    1     |  VAR_SMOI   |  swvl1          |  Soil moisture
+|    1     |  VAR_PRATE  |  tp             |  Total precipitation (m)
+|    1     |  VAR_U10    |  u10            |  U wind component at 10 m
+|    1     |  VAR_V10    |  v10            |  V wind component at 10 m
+|    1     |  VAR_T2     |  t2m            |  Temperature at 2 m
+|    0     |  VAR_PSFC   |  sp             |  Surface pressure
+|    1     |  VAR_LNSP   |  lnsp           |  Logarithm of surface pressure
+|    1     |  VAR_HGT    |  z              |  Model level height (m2/s2)
+|    1     |  VAR_T      |  t              |  Temperature
+|    1     |  VAR_U      |  u              |  U wind component
+|    1     |  VAR_V      |  v              |  V wind component
+|    1     |  VAR_OMEGA  |  w              |  Vertical velocity in Pa/s
+|    1     |  VAR_QV     |  q              |  Specific humidity
+|------------------------------------------|

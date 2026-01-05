@@ -1,0 +1,9 @@
+numpy
+rasterio 
+rio-cogeo
+xarray 
+shapely 
+pystac[validation] 
+netCDF4 
+h5netcdf 
+gdal==3.10.3
