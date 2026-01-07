@@ -577,7 +577,7 @@ $graph:
       NetworkAccess:
         networkAccess: true
       DockerRequirement:
-        dockerPull: docker.io/dtgeo/get-it-what-if-demo-etna:latest
+        dockerPull: docker.io/dtgeo/get-it-what-if-demo-lapalma:last_version
       ResourceRequirement:
         coresMax: 14
         ramMax: 16000
