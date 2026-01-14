@@ -1,3 +1,6 @@
+# Volcano label
+volcano: 'La Palma'
+
 # Type of scenario (high, medium, low)
 scenario: 'low'
 
@@ -12,7 +15,8 @@ start_date_time: "2021-09-25T06:00:00Z"
 end_date_time:   "2021-09-26T06:00:00Z"
 
 # Grid definition
-wkt: "POLYGON((-24.0 23.0, 10.0 23.0, 10.0 50.0, -24.0 50.0, -24.0 23.0))"
+wkt: "POLYGON((-24.0 23.0, 10.0 23.0, 10.0 50.0, -24.0 50.0, -24.0 23.0))" # correct AOI
+# wkt: "POLYGON((-22.33 42.87, -10.12 42.87, -10.12 49.20, -22.33 49.20, -22.33 42.87))" # wrong AOI for testing 
 dx: 0.1
 dy: 0.1
 nlevels: 20
@@ -30,9 +34,9 @@ vent_height: 1130
 # Plot configuration
 keys:
   - tephra_col_mass
-  - tephra_cloud_top
-  - SO2_col_mass
-  - SO2_cloud_top
+  # - tephra_cloud_top
+  # - SO2_col_mass
+  # - SO2_cloud_top
 
 # Time frequency
-times: 6
+times: 8
