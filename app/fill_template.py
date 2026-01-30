@@ -44,7 +44,7 @@ def main(args):
     if west_lon <= args.VENT_LON <= east_lon and south_lat <= args.VENT_LAT <= north_lat:
         print(f"Volcano coordinates are inside the domain box.")
     else:
-        print(f"Volcano coordinates are OUTSIDE the domain box!")
+        raise ValueError("Volcano coordinates are OUTSIDE the domain box!")
 
 
     fname = args.template
