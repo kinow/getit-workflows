@@ -43,8 +43,21 @@ keys:
 # Time frequency
 times: 6
 
-template: "./app_etna/template.inp"
-meteo: "./app_etna/meteo.nc"
-restart: "./app_etna/restart.nc"
-dictionary: "./app_etna/ERA5.tbl"
-levels: "./app_etna/L137_ECMWF.levels"
+template:
+  class: File
+  path: ./app_etna/template.inp
+meteo:
+  class: File
+  path: ./app_etna/meteo.nc
+restart:
+  class: File
+  path: ./app_etna/restart.nc
+dictionary:
+  class: File
+  path: ./app_etna/ERA5.tbl
+levels:
+  class: File
+  path: ./app_etna/L137_ECMWF.levels
+exe:
+  class: File
+  path: /home/kinow/Development/fortran/workspace/fall3d/build/bin/Fall3d.GNU.r8.mpi.cpu.x

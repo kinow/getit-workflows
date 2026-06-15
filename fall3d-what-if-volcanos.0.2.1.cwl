@@ -288,15 +288,6 @@ $graph:
       ResourceRequirement:
         coresMax: 14
         ramMax: 16000
-      # Copy the input files into staging area
-      InitialWorkDirRequirement:
-        listing:
-          - entryname: app_etna/template.inp
-            entry: $(inputs.template)
-          - entryname: app_etna/meteo.nc
-            entry: $(inputs.meteo)
-          - entryname: app_etna/restart.nc
-            entry: $(inputs.restart)
     inputs:
       volcano:
         label: Name of the volcano to be simulated
@@ -456,11 +447,13 @@ $graph:
         type: int
         default: 1
       # Let the user specify the input files.
-      template: string
-      meteo: string
-      restart: string?
-      dictionary: string?
-      levels: string?
+      template: File
+      meteo: File
+      restart: File?
+      dictionary: File?
+      levels: File?
+      # Let the user specify the model binary.
+      exe: File
     outputs:
       stac:
         label: stac-catalog
@@ -546,6 +539,11 @@ $graph:
           ny: ny_mpi
           nz: nz_mpi
           phases: set_scenario/phases
+          # Pass the model executable.
+          exe: exe
+          # Pass the files required by FALL3D.
+          meteo: meteo
+          restart: restart
         out: [log,res,rst]
       create_cogs:
         run: "#figures-etna"
@@ -588,7 +586,7 @@ $graph:
     inputs:
       template:
         label: Template file to be filled in
-        type: string
+        type: File
         inputBinding: {prefix: --template}
       initial_condition:
         label: FALL3D initial condition
@@ -613,19 +611,19 @@ $graph:
           type: enum
       meteo:
         label: Input meteorological file in netCDF format
-        type: string
+        type: File
         inputBinding: {prefix: --METEO_FILE}
       dictionary:
         label: Input dictionary for variable decoding
-        type: string?
+        type: File?
         inputBinding: {prefix: --METEO_DICTIONARY}
       restart:
         label: Restart file in netCDF format
-        type: string?
+        type: File?
         inputBinding: {prefix: --RESTART_FILE}
       levels:
         label: Two-columns file with coefficients for hybrid levels
-        type: string?
+        type: File?
         inputBinding: {prefix: --LEVELS_FILE}
       start_date_time:
         label: 2018-12-25T00:00:00Z
@@ -735,7 +733,7 @@ $graph:
     arguments:
       - prefix: -n
         valueFrom: $(inputs.nx * inputs.ny * inputs.nz)
-      - "Fall3d.GNU.r8.mpi.cpu.x"
+      - valueFrom: $(inputs.exe.path)
     doc: >
       Launch an MPI job in order to run FALL3D in parallel.
       Parallelisation in FALL3D is based on a 3D domain 
@@ -767,6 +765,15 @@ $graph:
       phases:
         label: Eruptive phases file for FALL3D
         type: File
+      # Pass the executable to the container. Before it was hard-coded in the arguments list.
+      exe:
+        label: FALL3D executable location
+        type: File
+      # Add files required by FALL3D. It works in the container because the file exists in the container folder.
+      meteo:
+        type: File
+      restart:
+        type: File?
     outputs:
       stdout:
         label: Standard output
@@ -800,6 +807,11 @@ $graph:
         listing:
           - $(inputs.inp)
           - $(inputs.phases)
+          - # Copy to staging the files required by FALL3D.
+          - entryname: app_etna/meteo.nc
+            entry: $(inputs.meteo)
+          - entryname: app_etna/restart.nc
+            entry: $(inputs.restart)
 
   ###################################################################### 
   # 1.1.4) CLT: figures (ETNA VARIANT) 
