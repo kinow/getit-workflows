@@ -447,13 +447,13 @@ $graph:
         type: int
         default: 1
       # Let the user specify the input files.
-      template: File
-      meteo: File
-      restart: File?
-      dictionary: File?
-      levels: File?
+      template: [string, File]
+      meteo: [string, File]
+      restart: [string, File?]
+      dictionary: [string, File?]
+      levels: [string, File?]
       # Let the user specify the model binary.
-      exe: File
+      exe: [string, File]
     outputs:
       stac:
         label: stac-catalog
@@ -570,7 +570,53 @@ $graph:
     class: CommandLineTool
     label: Fill out a configuration file template for FALL3D
     baseCommand: ["fill_template.py"]
-    arguments: []
+    arguments:
+      - prefix: --METEO_FILE
+        valueFrom: |
+          ${
+            if (typeof inputs.meteo === "string") {
+              return inputs.meteo;
+            } else {
+              return inputs.meteo.path;
+            }
+          }
+      - prefix: --RESTART_FILE
+        valueFrom: |
+          ${
+            if (typeof inputs.restart === "string") {
+              return inputs.restart;
+            } else {
+              return inputs.restart.path;
+            }
+          }
+      - prefix: --METEO_DICTIONARY
+        valueFrom: |
+          ${
+            if (typeof inputs.dictionary === "string") {
+              return inputs.dictionary;
+            } else {
+              return inputs.dictionary.path;
+            }
+          }
+      - prefix: --LEVELS_FILE
+        valueFrom: |
+          ${
+            if (typeof inputs.levels === "string") {
+              return inputs.levels;
+            } else {
+              return inputs.levels.path;
+            }
+          }
+      - prefix: --template
+        valueFrom: |
+          ${
+            if (typeof inputs.template === "string") {
+              return inputs.template;
+            } else {
+              return inputs.template.path;
+            }
+          }    
+
     doc: >
       This tool fill out an input template to generate a 
       full FALL3D configuration file. In the template are 
@@ -583,11 +629,15 @@ $graph:
       ResourceRequirement:
         coresMax: 14
         ramMax: 16000
+#      InitialWorkDirRequirement:
+#        listing:
+#          - entryname: template.inp
+#            entry: $(inputs.template)
+#            writable: true
     inputs:
       template:
         label: Template file to be filled in
-        type: File
-        inputBinding: {prefix: --template}
+        type: [string, File]
       initial_condition:
         label: FALL3D initial condition
         doc: FALL3D initial condition
@@ -611,20 +661,16 @@ $graph:
           type: enum
       meteo:
         label: Input meteorological file in netCDF format
-        type: File
-        inputBinding: {prefix: --METEO_FILE}
+        type: [string, File]
       dictionary:
         label: Input dictionary for variable decoding
-        type: File?
-        inputBinding: {prefix: --METEO_DICTIONARY}
+        type: [string, File?]
       restart:
         label: Restart file in netCDF format
-        type: File?
-        inputBinding: {prefix: --RESTART_FILE}
+        type: [string, File?]
       levels:
         label: Two-columns file with coefficients for hybrid levels
-        type: File?
-        inputBinding: {prefix: --LEVELS_FILE}
+        type: [string, File?]
       start_date_time:
         label: 2018-12-25T00:00:00Z
         type: string
@@ -733,7 +779,22 @@ $graph:
     arguments:
       - prefix: -n
         valueFrom: $(inputs.nx * inputs.ny * inputs.nz)
-      - valueFrom: $(inputs.exe.path)
+      - valueFrom: |
+          ${
+            if (typeof inputs.exe === 'string') {
+              return inputs.exe;
+            } else {
+              return inputs.exe.path;
+            }
+          }
+      # Execution mode
+      - valueFrom: "all"
+      # Path to input file
+      - valueFrom: $(inputs.inp.path)
+      # Partition dimensions
+      - valueFrom: $(inputs.nx)
+      - valueFrom: $(inputs.ny)
+      - valueFrom: $(inputs.nz)
     doc: >
       Launch an MPI job in order to run FALL3D in parallel.
       Parallelisation in FALL3D is based on a 3D domain 
@@ -745,35 +806,37 @@ $graph:
         label: FALL3D task
         type: string
         default: all
-        inputBinding: {position: 0}
-      inp: 
+      inp:
         label: FALL3D configuration file
         type: File
-        inputBinding: {position: 1}
       nx:
         label: Number of MPI processes along dimension X
         type: int
-        inputBinding: {position: 2}
       ny:
         label: Number of MPI processes along dimension Y
         type: int
-        inputBinding: {position: 3}
       nz:
         label: Number of MPI processes along dimension Z
         type: int
-        inputBinding: {position: 4}
       phases:
         label: Eruptive phases file for FALL3D
         type: File
       # Pass the executable to the container. Before it was hard-coded in the arguments list.
       exe:
         label: FALL3D executable location
-        type: File
+        doc: |
+          The FALL3D executable location.
+          
+          If a string is provided, it is assumed to be the path inside the container.
+          
+          If a File is provided, you must use with --no-container and provide the
+          host-compiled binary to be used.
+        type: [string, File]
       # Add files required by FALL3D. It works in the container because the file exists in the container folder.
       meteo:
-        type: File
+        type: [string, File]
       restart:
-        type: File?
+        type: [string, File]
     outputs:
       stdout:
         label: Standard output
@@ -803,17 +866,35 @@ $graph:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-etna:last_version
     requirements:
       InlineJavascriptRequirement: {}
-      InitialWorkDirRequirement:
-        listing:
-          - $(inputs.inp)
-          - $(inputs.phases)
-          - # Copy to staging the files required by FALL3D.
-          - entryname: app_etna/meteo.nc
-            entry: $(inputs.meteo)
-          - entryname: app_etna/restart.nc
-            entry: $(inputs.restart)
 
-  ###################################################################### 
+      InitialWorkDirRequirement:
+        listing: |
+          ${
+            var listing = [
+              inputs.inp,
+              inputs.phases
+            ];
+          
+            if (inputs.meteo && typeof inputs.meteo !== "string") {
+              listing.push({
+                class: "File",
+                location: inputs.meteo.location,
+                basename: "meteo.nc"
+              });
+            }
+          
+            if (inputs.restart && typeof inputs.restart !== "string") {
+              listing.push({
+                class: "File",
+                location: inputs.restart.location,
+                basename: "restart.nc"
+              });
+            }
+          
+            return listing;
+          }
+
+  ######################################################################
   # 1.1.4) CLT: figures (ETNA VARIANT) 
   ######################################################################
   - id: figures-etna

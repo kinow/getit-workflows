@@ -43,6 +43,15 @@ keys:
 # Time frequency
 times: 6
 
+# For container (the binary is inside the container, and in $PATH)
+#template: /app/template.inp
+#meteo: /app/meteo.nc
+#restart: /app/restart.nc
+#dictionary: /app/ERA5.tbl
+#levels: /app/L137_ECMWF.levels
+#exe: "Fall3d.GNU.r8.mpi.cpu.x"
+
+# For local machine
 template:
   class: File
   path: ./app_etna/template.inp
