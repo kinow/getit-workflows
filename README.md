@@ -6,21 +6,21 @@ The FALL3D model is driven by ERA5 data to generate a 24-h forecast
 of the 2018 Etna eruption started on 24 December at 09:30 UTC and La Palma
 eruption in 2021.
 
-This simulation are started using initial conditions from a previous simulation (restart).
+These simulations are started using initial conditions from a previous simulation (restart).
 
 The Etna test case can be executed using the command:
 
 ```console
-cwltool fall3d-what-if.0.1.6-etna.cwl#demo arguments_etna.yml
+cwltool fall3d-what-if-volcanos.0.2.1.cwl#demo-eta arguments_etna.yml
 ```
 
 and La Palma case with:
 
 ```console
-cwltool fall3d-what-if.0.1.6-lapalma.cwl#demo arguments_lapalma.yml
+cwltool fall3d-what-if-volcanos.0.2.1.cwl#demo-lapalma arguments_lapalma.yml
 ```
 
-It runs the FALL3D model using 6 MPI processes (by default) and generates a STAC catalog as an output.
+It runs the FALL3D model using six MPI processes (by default) and generates a STAC catalog as an output.
 
 # Requirements
 
@@ -36,17 +36,17 @@ pip install cwltool
 
 ## Docker container
 
-By default the job is executed in a [Docker container][Dockerhub].
+By default, the job is executed in a [Docker container][Dockerhub].
 If you prefer Podman runtime for running containers, use:
 ```console
-cwltool --podman fall3d-what-if-0.1.0.cwl#demo arguments.yml
+cwltool --podman fall3d-what-if-volcanos.0.2.1.cwl#demo-eta arguments_etna.yml
 ```
 or
 ```console
-cwltool --singularity fall3d-what-if-0.1.0.cwl#demo arguments.yml
+cwltool --singularity fall3d-what-if-volcanos.0.2.1.cwl#demo-lapalma arguments_lapalma.yml
 ```
 for singularity/apptainer.
 
 <!----------------------------------------------------------------------------->
 
-[Dockerhub]: docker.io/dtgeo/get-it-what-if-demo-etna:last_version
+[Dockerhub]: https://docker.io/dtgeo/get-it-what-if-demo-etna:last_version
