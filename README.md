@@ -39,13 +39,22 @@ pip install cwltool
 By default, the job is executed in a [Docker container][Dockerhub].
 If you prefer Podman runtime for running containers, use:
 ```console
-cwltool --podman fall3d-what-if-volcanos.0.2.1.cwl#demo-eta arguments_etna.yml
+cwltool --podman fall3d-what-if-volcanos.0.2.1.cwl#demo-etna arguments_etna.yml
 ```
 or
 ```console
 cwltool --singularity fall3d-what-if-volcanos.0.2.1.cwl#demo-lapalma arguments_lapalma.yml
 ```
 for singularity/apptainer.
+
+## No containers
+
+You can disable and run the workflows directly on the host machine
+with the `--no-container` option of cwltool.
+
+```console
+cwltool --no-container fall3d-what-if-volcanos.0.2.1.cwl#demo-eta arguments_etna.yml
+```
 
 <!----------------------------------------------------------------------------->
 

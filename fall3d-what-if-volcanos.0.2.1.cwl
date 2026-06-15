@@ -568,9 +568,10 @@ $graph:
       full FALL3D configuration file. In the template are 
       hardcoded those parameters that are intended to be 
       fixed for the present simulation case
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-etna:last_version
+    requirements:
       ResourceRequirement:
         coresMax: 14
         ramMax: 16000
@@ -695,9 +696,10 @@ $graph:
         type: File
         outputBinding:
           glob: "phases.dat"
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-etna:last_version
+    requirements:
       InlineJavascriptRequirement: {}
       InitialWorkDirRequirement:
         listing:
@@ -779,9 +781,10 @@ $graph:
           glob: "*.rst.nc"
     stdout: fall3d.out
     stderr: fall3d.err
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-etna:last_version
+    requirements:
       InlineJavascriptRequirement: {}
       InitialWorkDirRequirement:
         listing:
@@ -800,7 +803,7 @@ $graph:
       This tool reads a variable (key) from a FALL3D output 
       file in netCDF format (netcdf) and produces a single
       Cloud-Optimized GeoTIFF (COG) file in geotiff format
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-etna:last_version
     inputs:
@@ -837,7 +840,7 @@ $graph:
       format. The netCDF file is provided as an argument, 
       while the GeoTIFF images are automatically detected 
       in the working folder
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-etna:last_version
     inputs:
@@ -1165,9 +1168,10 @@ $graph:
       full FALL3D configuration file. In the template are 
       hardcoded those parameters that are intended to be 
       fixed for the present simulation case
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-lapalma:last_version
+    requirements:
       ResourceRequirement:
         coresMax: 14
         ramMax: 16000
@@ -1292,9 +1296,10 @@ $graph:
         type: File
         outputBinding:
           glob: "phases.dat"
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-lapalma:last_version
+    requirements:
       InlineJavascriptRequirement: {}
       InitialWorkDirRequirement:
         listing:
@@ -1376,9 +1381,10 @@ $graph:
           glob: "*.rst.nc"
     stdout: fall3d.out
     stderr: fall3d.err
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-lapalma:last_version
+    requirements:
       InlineJavascriptRequirement: {}
       InitialWorkDirRequirement:
         listing:
@@ -1397,7 +1403,7 @@ $graph:
       This tool reads a variable (key) from a FALL3D output 
       file in netCDF format (netcdf) and produces a single
       Cloud-Optimized GeoTIFF (COG) file in geotiff format
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-lapalma:last_version
     inputs:
@@ -1434,7 +1440,7 @@ $graph:
       format. The netCDF file is provided as an argument, 
       while the GeoTIFF images are automatically detected 
       in the working folder
-    requirements:
+    hints:
       DockerRequirement:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-lapalma:last_version
     inputs:
