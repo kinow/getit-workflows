@@ -42,3 +42,9 @@ keys:
 
 # Time frequency
 times: 6
+
+template: "./app_etna/template.inp"
+meteo: "./app_etna/meteo.nc"
+restart: "./app_etna/restart.nc"
+dictionary: "./app_etna/ERA5.tbl"
+levels: "./app_etna/L137_ECMWF.levels"
