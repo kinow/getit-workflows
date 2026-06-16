@@ -570,53 +570,7 @@ $graph:
     class: CommandLineTool
     label: Fill out a configuration file template for FALL3D
     baseCommand: ["fill_template.py"]
-    arguments:
-      - prefix: --METEO_FILE
-        valueFrom: |
-          ${
-            if (typeof inputs.meteo === "string") {
-              return inputs.meteo;
-            } else {
-              return inputs.meteo.path;
-            }
-          }
-      - prefix: --RESTART_FILE
-        valueFrom: |
-          ${
-            if (typeof inputs.restart === "string") {
-              return inputs.restart;
-            } else {
-              return inputs.restart.path;
-            }
-          }
-      - prefix: --METEO_DICTIONARY
-        valueFrom: |
-          ${
-            if (typeof inputs.dictionary === "string") {
-              return inputs.dictionary;
-            } else {
-              return inputs.dictionary.path;
-            }
-          }
-      - prefix: --LEVELS_FILE
-        valueFrom: |
-          ${
-            if (typeof inputs.levels === "string") {
-              return inputs.levels;
-            } else {
-              return inputs.levels.path;
-            }
-          }
-      - prefix: --template
-        valueFrom: |
-          ${
-            if (typeof inputs.template === "string") {
-              return inputs.template;
-            } else {
-              return inputs.template.path;
-            }
-          }    
-
+    arguments: []
     doc: >
       This tool fill out an input template to generate a 
       full FALL3D configuration file. In the template are 
@@ -629,15 +583,11 @@ $graph:
       ResourceRequirement:
         coresMax: 14
         ramMax: 16000
-#      InitialWorkDirRequirement:
-#        listing:
-#          - entryname: template.inp
-#            entry: $(inputs.template)
-#            writable: true
     inputs:
       template:
         label: Template file to be filled in
         type: string
+        inputBinding: {prefix: --template}
       initial_condition:
         label: FALL3D initial condition
         doc: FALL3D initial condition
@@ -662,15 +612,19 @@ $graph:
       meteo:
         label: Input meteorological file in netCDF format
         type: string
+        inputBinding: {prefix: --METEO_FILE}
       dictionary:
         label: Input dictionary for variable decoding
-        type: string
+        type: string?
+        inputBinding: {prefix: --METEO_DICTIONARY}
       restart:
         label: Restart file in netCDF format
-        type: string
+        type: string?
+        inputBinding: {prefix: --RESTART_FILE}
       levels:
         label: Two-columns file with coefficients for hybrid levels
-        type: string
+        type: string?
+        inputBinding: {prefix: --LEVELS_FILE}
       start_date_time:
         label: 2018-12-25T00:00:00Z
         type: string
