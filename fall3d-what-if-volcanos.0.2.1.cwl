@@ -446,14 +446,14 @@ $graph:
           N = nx_mpi*ny_mpi*nz_mpi
         type: int
         default: 1
+      # Let the user specify the model binary.
+      exe: string
       # Let the user specify the input files.
       template: string
       meteo: string
       restart: string
       dictionary: string
       levels: string
-      # Let the user specify the model binary.
-      exe: string
     outputs:
       stac:
         label: stac-catalog
@@ -810,7 +810,6 @@ $graph:
         dockerPull: docker.io/dtgeo/get-it-what-if-demo-etna:last_version
     requirements:
       InlineJavascriptRequirement: {}
-
       InitialWorkDirRequirement:
         listing:
           - $(inputs.inp)
