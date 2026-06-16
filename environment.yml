@@ -1,0 +1,26 @@
+# You can recreate this environment with:
+# micromamba env create -f environment.yml --yes
+# And then either install the cwltool version used in the master's thesis:
+# micromamba install --yes cwltool=3.2.20260413085819
+# Or install the version that supports MPIRequirement + singularity:
+# pip install "git+https://github.com/common-workflow-language/cwltool.git@detect-mpi-with-singularity#egg=cwltool"
+name: cwltool_singularity
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.13
+  - nodejs
+  - numpy
+  - rasterio
+  - rio-cogeo
+  - xarray
+  - shapely
+  - netCDF4
+  - h5netcdf
+  - gdal=3.10.3
+
+  - pip
+  - pip:
+      - "pystac[validation]"
