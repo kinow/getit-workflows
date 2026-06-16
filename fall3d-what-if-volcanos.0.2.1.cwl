@@ -812,31 +812,9 @@ $graph:
       InlineJavascriptRequirement: {}
 
       InitialWorkDirRequirement:
-        listing: |
-          ${
-            var listing = [
-              inputs.inp,
-              inputs.phases
-            ];
-          
-            if (inputs.meteo && typeof inputs.meteo !== "string") {
-              listing.push({
-                class: "File",
-                location: inputs.meteo.location,
-                basename: "meteo.nc"
-              });
-            }
-          
-            if (inputs.restart && typeof inputs.restart !== "string") {
-              listing.push({
-                class: "File",
-                location: inputs.restart.location,
-                basename: "restart.nc"
-              });
-            }
-          
-            return listing;
-          }
+        listing:
+          - $(inputs.inp)
+          - $(inputs.phases)
 
   ######################################################################
   # 1.1.4) CLT: figures (ETNA VARIANT) 
