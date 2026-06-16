@@ -11,7 +11,7 @@ These simulations are started using initial conditions from a previous simulatio
 The Etna test case can be executed using the command:
 
 ```console
-cwltool fall3d-what-if-volcanos.0.2.1.cwl#demo-eta arguments_etna.yml
+cwltool fall3d-what-if-volcanos.0.2.1.cwl#demo-eta arguments_etna_container.yml
 ```
 
 and La Palma case with:
@@ -39,7 +39,7 @@ pip install cwltool
 By default, the job is executed in a [Docker container][Dockerhub].
 If you prefer Podman runtime for running containers, use:
 ```console
-cwltool --podman fall3d-what-if-volcanos.0.2.1.cwl#demo-etna arguments_etna.yml
+cwltool --podman fall3d-what-if-volcanos.0.2.1.cwl#demo-etna arguments_etna_container.yml
 ```
 or
 ```console
@@ -52,8 +52,27 @@ for singularity/apptainer.
 You can disable and run the workflows directly on the host machine
 with the `--no-container` option of cwltool.
 
+Before doing that, you must compile FALL3D in your local environment 
+and download the required input data. You can download the input data
+from inside the container.
+
 ```console
-cwltool --no-container fall3d-what-if-volcanos.0.2.1.cwl#demo-eta arguments_etna.yml
+docker create --name etna-data-extract docker.io/dtgeo/get-it-what-if-demo-etna:last_version
+docker cp etna-data-extract:/app/meteo.nc ./app_etna/meteo.nc
+docker cp etna-data-extract:/app/restart.nc ./app_etna/restart.nc
+```
+
+The etna workflow calls the Python scripts directly. This could be made more dynamic, but
+the current workaround is to just add those utilities to the `$PATH`.
+
+```console
+export PATH=$PATH:$(pwd -P)/app/
+```
+
+And then run the workflow locally:
+
+```console
+cwltool --no-container fall3d-what-if-volcanos.0.2.1.cwl#demo-eta arguments_etna_laptop.yml
 ```
 
 <!----------------------------------------------------------------------------->
