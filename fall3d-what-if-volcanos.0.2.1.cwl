@@ -733,22 +733,6 @@ $graph:
     arguments:
       - prefix: -n
         valueFrom: $(inputs.nx * inputs.ny * inputs.nz)
-      - valueFrom: |
-          ${
-            if (typeof inputs.exe === 'string') {
-              return inputs.exe;
-            } else {
-              return inputs.exe.path;
-            }
-          }
-      # Execution mode
-      - valueFrom: "all"
-      # Path to input file
-      - valueFrom: $(inputs.inp.path)
-      # Partition dimensions
-      - valueFrom: $(inputs.nx)
-      - valueFrom: $(inputs.ny)
-      - valueFrom: $(inputs.nz)
     doc: >
       Launch an MPI job in order to run FALL3D in parallel.
       Parallelisation in FALL3D is based on a 3D domain 
@@ -756,36 +740,42 @@ $graph:
       along the dimensions X, Y and Z, respectively.
       This CLT supports only the task "all"
     inputs:
-      task:
-        label: FALL3D task
-        type: string
-        default: all
-      inp:
-        label: FALL3D configuration file
-        type: File
-      nx:
-        label: Number of MPI processes along dimension X
-        type: int
-      ny:
-        label: Number of MPI processes along dimension Y
-        type: int
-      nz:
-        label: Number of MPI processes along dimension Z
-        type: int
-      phases:
-        label: Eruptive phases file for FALL3D
-        type: File
       # Pass the executable to the container. Before it was hard-coded in the arguments list.
       exe:
         label: FALL3D executable location
         doc: |
           The FALL3D executable location.
-          
+
           If a string is provided, it is assumed to be the path inside the container.
-          
+
           If a File is provided, you must use with --no-container and provide the
           host-compiled binary to be used.
         type: string
+        inputBinding: {position: 0}
+      task:
+        label: FALL3D task
+        type: string
+        default: all
+        inputBinding: {position: 1}
+      inp:
+        label: FALL3D configuration file
+        type: File
+        inputBinding: {position: 2}
+      nx:
+        label: Number of MPI processes along dimension X
+        type: int
+        inputBinding: {position: 3}
+      ny:
+        label: Number of MPI processes along dimension Y
+        type: int
+        inputBinding: {position: 4}
+      nz:
+        label: Number of MPI processes along dimension Z
+        type: int
+        inputBinding: {position: 5}
+      phases:
+        label: Eruptive phases file for FALL3D
+        type: File
       # Add files required by FALL3D. It works in the container because the file exists in the container folder.
       meteo:
         type: string
