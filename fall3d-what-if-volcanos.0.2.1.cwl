@@ -447,13 +447,13 @@ $graph:
         type: int
         default: 1
       # Let the user specify the input files.
-      template: [string, File]
-      meteo: [string, File]
-      restart: [string, File?]
-      dictionary: [string, File?]
-      levels: [string, File?]
+      template: string
+      meteo: string
+      restart: string
+      dictionary: string
+      levels: string
       # Let the user specify the model binary.
-      exe: [string, File]
+      exe: string
     outputs:
       stac:
         label: stac-catalog
@@ -637,7 +637,7 @@ $graph:
     inputs:
       template:
         label: Template file to be filled in
-        type: [string, File]
+        type: string
       initial_condition:
         label: FALL3D initial condition
         doc: FALL3D initial condition
@@ -661,16 +661,16 @@ $graph:
           type: enum
       meteo:
         label: Input meteorological file in netCDF format
-        type: [string, File]
+        type: string
       dictionary:
         label: Input dictionary for variable decoding
-        type: [string, File?]
+        type: string
       restart:
         label: Restart file in netCDF format
-        type: [string, File?]
+        type: string
       levels:
         label: Two-columns file with coefficients for hybrid levels
-        type: [string, File?]
+        type: string
       start_date_time:
         label: 2018-12-25T00:00:00Z
         type: string
@@ -831,12 +831,12 @@ $graph:
           
           If a File is provided, you must use with --no-container and provide the
           host-compiled binary to be used.
-        type: [string, File]
+        type: string
       # Add files required by FALL3D. It works in the container because the file exists in the container folder.
       meteo:
-        type: [string, File]
+        type: string
       restart:
-        type: [string, File]
+        type: string
     outputs:
       stdout:
         label: Standard output
