@@ -1,0 +1,10 @@
+732,735c732
+<     baseCommand: mpirun
+<     arguments:
+<       - prefix: -n
+<         valueFrom: $(inputs.nx * inputs.ny * inputs.nz)
+---
+>     baseCommand: []
+816a814,815
+>       cwltool:MPIRequirement:
+>         processes: $(inputs.nx * inputs.ny * inputs.nz)

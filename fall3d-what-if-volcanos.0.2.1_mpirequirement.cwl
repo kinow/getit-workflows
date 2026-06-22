@@ -729,10 +729,7 @@ $graph:
   - id: runner-etna
     class: CommandLineTool
     label: Run FALL3D model
-    baseCommand: mpirun
-    arguments:
-      - prefix: -n
-        valueFrom: $(inputs.nx * inputs.ny * inputs.nz)
+    baseCommand: []
     doc: >
       Launch an MPI job in order to run FALL3D in parallel.
       Parallelisation in FALL3D is based on a 3D domain 
@@ -814,6 +811,8 @@ $graph:
         listing:
           - $(inputs.inp)
           - $(inputs.phases)
+      cwltool:MPIRequirement:
+        processes: $(inputs.nx * inputs.ny * inputs.nz)
 
   ######################################################################
   # 1.1.4) CLT: figures (ETNA VARIANT) 

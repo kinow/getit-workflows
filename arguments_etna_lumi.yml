@@ -12,7 +12,7 @@ initial_condition: 'RESTART'
 
 # Time range
 start_date_time: "2018-12-25T00:00:00Z"
-end_date_time:   "2018-12-26T00:00:00Z"
+end_date_time:   "2018-12-28T00:00:00Z"
 
 # Grid definition
 wkt: "POLYGON((8.0 33.0, 22.0 33.0, 22.0 40.0, 8.0 40.0, 8.0 33.0))" # wkt1: OK, AOI over the AOI and Etna
@@ -29,9 +29,9 @@ vent_lat: 37.75
 vent_height: 3300
 
 # MPI tasks
-#nx_mpi: 3
-#ny_mpi: 2
-#nz_mpi: 1
+nx_mpi: 6
+ny_mpi: 4
+nz_mpi: 1
 
 # Plot configuration
 keys:
@@ -42,3 +42,14 @@ keys:
 
 # Time frequency
 times: 6
+
+# Path to FALL3D executable and input data.
+# Set the scratch or project directory here.
+# export SCRATCH_DIR=/project/project_1234/user/
+# sed -i "s|HPC_SCRATCH_DIR|$SCRATCH_DIR|g" arguments_etna_lumi.yml
+template: HPC_SCRATCH_DIR/getit-workflows/app_etna/template.inp
+meteo: HPC_SCRATCH_DIR/getit-workflows/app_etna/meteo.nc
+restart: HPC_SCRATCH_DIR/getit-workflows/app_etna/restart.nc
+dictionary: HPC_SCRATCH_DIR/getit-workflows/app_etna/ERA5.tbl
+levels: HPC_SCRATCH_DIR/getit-workflows/app_etna/L137_ECMWF.levels
+exe: HPC_SCRATCH_DIR/fall3d/build/bin/Fall3d.Cray.r8.mpi.cpu.x
